@@ -6,7 +6,13 @@
 ### Depth values are found by searching the text string for a number, e.g. "X3.42" would return 3.42
 ### Time must be specified as a posix string
 
+list.of.packages <- c("xts","dygraphs","pracma","lubridate")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
 
+## Load Libraries
+library(PermafrostTools)
+library(pracma)
 
 options(stringsAsFactors = FALSE)
 try(library(xts),library(dygraphs))
