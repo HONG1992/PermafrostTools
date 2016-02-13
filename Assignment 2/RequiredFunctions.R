@@ -70,8 +70,8 @@ Stepchange <- function(site,climate,Tstep,zbound=c(0,60), zstep=1) {
 }
 
 ## Build surface temperature for 1 year
-yearly.T <- function(mean, amplitude) {
-  jul.day <- c(1:365)
-  T.year <- mean+amplitude*sin(jul.day*2*pi/365)
+yearly.T <- function(mean, amplitude, warming = 0, years = 1) {
+  jul.day <- c(1:(365*years))
+  T.year <- mean+amplitude*sin(jul.day*2*pi/365) + jul.day*warming/365
   return(data.frame(jul.day,T.year))
 }
