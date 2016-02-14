@@ -1,5 +1,5 @@
 library(PermafrostTools)
-source("StepChange.R")
+source("RequiredFunctions.R")
 
 ### Comparison with analytical solution
 
@@ -45,7 +45,7 @@ legend(0,-20,legend=c("Analytical", "Numeric"),col=c("black","blue"),lty=c(1,3),
 #Set parameters
 dt <- toSeconds(1,"d") # 1 day time steps
 ns <- 365  # save every year
-st <- toSecondS(15,"y")  # [s] run it for 15 year
+st <- toSeconds(15,"y")  # [s] run it for 15 year
 
 dzmin <- .5 # 10 cm grid spacing 
 zmax <- 75 # lowermost node
@@ -110,7 +110,7 @@ for (i in 1:nt) {
 #  Annotate with numeric data  ##
 #################################
 
-mtext("Figure 1", side=1, line=1,cex=2)
+#mtext("Figure 1", side=1, line=1,cex=2)
 
 text(-3,-40,paste(
 "Time Step = 1 day \n
@@ -151,7 +151,7 @@ legend(0,-20,legend=c("Analytical", "Numeric"),col=c("black","blue"),lty=c(1,3),
 #Set parameters
 dt <- toSeconds(73,"d") # 73 day time steps
 ns <- 5  # save every year
-st <- toSecondS(15,"y")  # [s] run it for 15 year
+st <- toSeconds(15,"y")  # [s] run it for 15 year
 
 dzmin <- .5 # 10 cm grid spacing 
 zmax <- 75 # lowermost node
@@ -214,7 +214,7 @@ for (i in 1:nt) {
 
 # Annotate Figure 2 -------------------------------------------------------
 
-mtext("Figure 2", side=1, line=1,cex=2)
+#mtext("Figure 2", side=1, line=1,cex=2)
 
 text(-3,-40,paste(
   "Time Step = 73 day \n
@@ -252,7 +252,7 @@ legend(0,-20,legend=c("Analytical", "Numeric"),col=c("black","blue"),lty=c(1,3),
 #Set parameters
 dt <- toSeconds(1,"d") # 1 day time steps
 ns <- 365  # save every year
-st <- toSecondS(15,"y")  # [s] run it for 15 year
+st <- toSeconds(15,"y")  # [s] run it for 15 year
 
 dzmin <- .5 # 50 cm grid spacing 
 zmax <- 75 # lowermost node
@@ -315,7 +315,7 @@ for (i in 1:nt) {
 
 # Annotate Figure 3 -------------------------------------------------------
 
-mtext("Figure 3", side=1, line=1,cex=2)
+#mtext("Figure 3", side=1, line=1,cex=2)
 
 text(-3,-40,paste(
   "Time Step = 1 day \n
