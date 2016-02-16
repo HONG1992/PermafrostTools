@@ -1,7 +1,10 @@
+rm(list=ls()) # Clean  up workspace
 
-setwd("C:\\Users\\Nick\\Code\\PermafrostTools\\Assignment 2")
+library(PermafrostTools)
 source("RequiredFunctions.R")
 
+
+# Make a function to run model with specified ratio between kthawed and kfrozen
 runQ2 <- function(years,kthaw,kfactor){
 years.to.run <- years  # run for number of years
 k.factor <- kfactor
@@ -171,6 +174,7 @@ F4temp <-sapply(as.data.frame(factor4$out.Tj[(L-Lm):L,]),mean)
 F5temp <-sapply(as.data.frame(factor5$out.Tj[(L-Lm):L,]),mean)
 
 ##  Plot mean annual temperature plots 
+##  Generate arrays
 Fig4.15 <- as.array(cbind(F1temp,F2temp,F3temp,F4temp,F5temp))
 depths <- array(rep(factor1$mat$zj,5),dim=c(length(factor1$mat$zj),5))
 
@@ -181,11 +185,11 @@ plot(Fig4.15[,1],depths[,1],type="n",xlim=c(-1.5,0),ylim=c(-5,0),
 rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col = "gray")  # add background
 ratio = c(1,2,3,4,5)
 plotcols = c("black","red","blue","yellow","pink")
-plottyp = c(1,2,3,4,5)
+plottyp = c(1,2,3,4,1)
 
 lapply(c(1:5),function(x) lines(Fig4.15[,x],depths[,x],col=plotcols[x],lty=plottyp[x]))  ## add lines
 
-legend(0.25,-2,legend=as.character(ratio),col=plotcols,lty=plottyp, ## add legend
-      title ="Frozen:Thawed Conductivity Ratio")
+legend(-1.5,0,legend=as.character(ratio),col=plotcols,lty=plottyp, ## add legend
+      title ="Frozen:Thawed Conductivity Ratio",bty="n")
 
 

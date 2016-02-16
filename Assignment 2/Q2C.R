@@ -1,19 +1,16 @@
-## Set parameters
-## Function to run for 1 year and check max(T) at each depth
-## 
-  rm(list=ls())
+rm(list=ls())  # Clean up workspace
   
-  setwd("C:\\Users\\Nick\\Git\\PermafrostTools\\Assignment 2")
-  source("RequiredFunctions.R")
+library(PermafrostTools)
+source("RequiredFunctions.R")
   
   
   ##  Set Global Parameters
   
   Ti <- -1.5
   #make material properties and discretization
-  dzmin <- 1 # 10 cm grid spacing 
+  dzmin <- 0.01 # 10 cm grid spacing 
   zmax <- 150 # lowermost node
-  base <- 1.05 #  grid coarsening with depth
+  base <- 1.3 #  grid coarsening with depth
   soild <- SoilDiscretize(dzmin, zmax, base)
   nz    <- length(soild$z) #number of soil discretizations
   
@@ -142,7 +139,7 @@
       if (sum(out.PF[,i/5]) == 0 & i>5*5) break  #stop running if no more PF, but run for at least 5yr
     }
     return(list(mat=out.mat,out.Tj=out.Tj,PF=out.PF,Bc=bc.upper))
-  }
+  } # END Warm
  
   vis <- function(PF.output,skip=1){
     for (i in seq(1,length(PF.output$out.Tj[,1]),skip)) {
@@ -209,30 +206,31 @@ abline(h=-110.9,lty=2,col="grey")
 abline(v=0,lty=3,col="red")
 
 ##################
-dev.new()
-PFloss<-sapply(c(1:length(W500$mat$zj)),function(x) min(which(W500$PF[x,]==F))) # which year did PF thaw completely?
-plot(PFloss,W500$mat$zj,type="l",xlab="Years",ylab="Depth (m)",lty=2,
-     main="Location of 0 Degree Isotherm")
-
-dev.new()
-plot(seq(1,max(PFloss),length.out=dim(W500$out.Tj)[1]),W500$out.Tj[,36], xlab="Years Elapsed", ylab="Temperature (C)",type="l",
-     main="Ground Temperature at 110.9 m")
-abline(v=2925,lty=2,col="grey")
-abline(h=0,lty=3,col="red")
-
-dev.new()
-par(mfrow=c(1,2))
-plot(W500$out.Tj[2850,],W500$mat$zj, xlab="Temperature (C)", ylab="Depth (m)",type="l",
-     main="Year 2850")
-abline(h=-110.9,lty=2,col="grey")
-abline(v=0,lty=3,col="red")
-
-plot(W500$out.Tj[3100,],W500$mat$zj, xlab="Temperature (C)", ylab="Depth (m)",type="l",
-     main="Year 3100")
-abline(h=-110.9,lty=2,col="grey")
-abline(v=0,lty=3,col="red")
-
-
-
+# dev.new()
+# PFloss<-sapply(c(1:length(W500$mat$zj)),function(x) min(which(W500$PF[x,]==F))) # which year did PF thaw completely?
+# plot(PFloss,W500$mat$zj,type="l",xlab="Years",ylab="Depth (m)",lty=2,
+#      main="Location of 0 Degree Isotherm")
+# 
+# dev.new()
+# plot(seq(1,max(PFloss),length.out=dim(W500$out.Tj)[1]),W500$out.Tj[,40], xlab="Years Elapsed", ylab="Temperature (C)",type="l",
+#      main="Ground Temperature at 117.4 m \n (2nd Discretization)")
+# text(3000,-.3,"dzmin = 1.0 \n zmax = 150 \n base = 1.05"
+#          )
+# 
+# 
+# dev.new()
+# par(mfrow=c(1,2))
+# plot(W500$out.Tj[2850,],W500$mat$zj, xlab="Temperature (C)", ylab="Depth (m)",type="l",
+#      main="Year 2850")
+# abline(h=-110.9,lty=2,col="grey")
+# abline(v=0,lty=3,col="red")
+# 
+# plot(W500$out.Tj[3100,],W500$mat$zj, xlab="Temperature (C)", ylab="Depth (m)",type="l",
+#      main="Year 3100")
+# abline(h=-110.9,lty=2,col="grey")
+# abline(v=0,lty=3,col="red")
+# 
+# 
+# 
 
 

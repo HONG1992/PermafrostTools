@@ -1,9 +1,6 @@
-## Set parameters
-## Function to run for 1 year and check max(T) at each depth
-## 
+rm(list=ls()) # Clean up workspace
 
-rm(list=ls())
-setwd("C:\\Users\\Nick\\Git\\PermafrostTools\\Assignment 2")
+library(PermafrostTools)
 source("RequiredFunctions.R")
 
 
@@ -95,7 +92,7 @@ Warm <- function(soil,years,warming){  #could add parameters variable
   
   
   #Set time parameters
-  dt <- toSeconds(73,"d") # 1 day time steps
+  dt <- toSeconds(1,"d") # 1 day time steps
   ns <- 5  # save every 5 days
   st <- toSeconds(years.to.run,"y")  # [s] run it for number of years specified above
   t     <- seq(from = 0, to = st, by = dt) #vector of time [s]
@@ -140,7 +137,7 @@ Warm <- function(soil,years,warming){  #could add parameters variable
     if (sum(out.PF[,i/365]) == 0 & i>365*5) break  #stop running if no more PF, but run for at least 5yr
   }
   return(list(mat=out.mat,out.Tj=out.Tj,PF=out.PF,Bc=bc.upper,t=out.t))
-}
+} # End Warm
 
 ## Visualize!!  # Watch a soil profile evolve
 vis <- function(PF.output,skip=1){
@@ -166,26 +163,22 @@ W<-Warm(B,50,0.1)  #50 year warming @ 0.1 deg/yr
 
 # Make Plots
 dev.new()
-
-# Boundary Conditions
-#Fig2B-1
-dev.new()
 plot(seq(1,10,length.out=365),B$bc[0:365*10],xlab="Years Elapsed", ylab="Temperature (C)",type="l",
      main="Spin-up temperatures (First 10 Years)")
-dev.new()
 
+dev.new()
 plot(B$t/toSeconds(1,'y'),B$out.Tj[,41], xlab="Years Elapsed", ylab="Temperature (C)",type="l",
      main="Spin-up Temperature at 4.71 m")
-dev.new()
 
+dev.new()
 plot(seq(1,10,length.out=365),W$Bc[0:365*10],xlab="Years Elapsed", ylab="Temperature (C)",type="l",
      main="Simulated Warming (First 10 Years)")
-dev.new()
 
+dev.new()
 plot(W$t/toSeconds(1,'y'),W$out.Tj[,39], xlab="Years Elapsed", ylab="Temperature (C)",type="l",
      main="Ground Temperature at 3.83 m")
-dev.new()
 
+dev.new()
 plot(apply(W$out.Tj[(1388-74*2):(1388-74),],2,mean),W$mat$zj, xlab="Temperature (C)", ylab="Depth (m)",type="l",
      main="Mean Ground Temperature for year 18")
 abline(v=0,col="red",lty=2)
